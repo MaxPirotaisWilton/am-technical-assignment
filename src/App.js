@@ -1,13 +1,14 @@
 import './App.css';
 import React from 'react';
 import LanguageSelection from './LanguageSelection';
-import config from './Configs/SouthIsland.json';
+import Landing from './Landing';
+import config from './assets/Configs/SouthIsland.json';
 
 function App(){
 
-  const landingConfig = config.main;
+  const landingConfig = config.info;
 
-  const detailConfigs = config.details;
+  // const detailConfigs = config.details;
 
   var currentConfig = landingConfig;
 
@@ -22,10 +23,12 @@ function App(){
         {verifySubtitleExists(subtitle) &&
         <h2>{subtitle}</h2>
         }
+        
+        <Landing object = {config}/>
         <div>
           <div>
             {verifyParagraphsExist(paragraphs) &&
-            <ul>{paragraphs.map((item) => <li>{item}</li>)}</ul>
+            <ul>{paragraphs.map((item) => <li key= {item.toString()}>{item}</li>)}</ul>
             } 
           </div>
           <LanguageSelection langValue={langToggle} toggleLang={setLangToggle}/>
@@ -59,13 +62,16 @@ function getParagraphs(toggle,object){
     return object.english.paragraphs;
   }
 }
+// function getImage(object){
+//   return object.info.image
+// }
 
 function verifySubtitleExists(susSubtitle){
-  return susSubtitle != undefined && susSubtitle != null;
+  return susSubtitle !== undefined && susSubtitle != null;
 }
 
 function verifyParagraphsExist(susParagraphs){
-  return susParagraphs != undefined && susParagraphs != null && susParagraphs.length > 0;
+  return susParagraphs !== undefined && susParagraphs != null && susParagraphs.length > 0;
 }
 
 export default App;
