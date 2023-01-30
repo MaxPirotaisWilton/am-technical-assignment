@@ -13,18 +13,17 @@ function App(){
   var currentConfig = landingConfig;
 
   const [langToggle,setLangToggle] = React.useState(false);
+  const [textObject,setTextObject] = React.useState(currentConfig);
   
-  const subtitle = getSubtitle(langToggle,currentConfig);
-  const paragraphs = getParagraphs(langToggle,currentConfig);
+  const subtitle = getSubtitle(langToggle,textObject);
+  const paragraphs = getParagraphs(langToggle,textObject);
 
     return (
       <div>
-        <h1>{getTitle(langToggle,currentConfig)}</h1>
+        <h1>{getTitle(langToggle,textObject)}</h1>
         {verifySubtitleExists(subtitle) &&
         <h2>{subtitle}</h2>
         }
-        
-        <Landing object = {config}/>
         <div>
           <div>
             {verifyParagraphsExist(paragraphs) &&
@@ -33,6 +32,8 @@ function App(){
           </div>
           <LanguageSelection langValue={langToggle} toggleLang={setLangToggle}/>
         </div>
+        
+        <Landing object= {config} setParentText= {setTextObject} isParent= {false} layer= {0}/>
 
       </div>
     );
