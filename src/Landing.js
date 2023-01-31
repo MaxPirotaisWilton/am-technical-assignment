@@ -1,5 +1,5 @@
 import imageLoad from "./ImageLoad";
-import React from 'react';
+import React, { useRef } from 'react';
 
 
 function Landing({object,setParentText,setParentDetailID,isParent,layer}){
@@ -14,38 +14,54 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer}){
     const areas = [];
     const nextLayer = layer + 1;
     var child = [];
+    const timeoutID = useRef(null);
+    const millisecTimer = 60000;
+
+    // DEBUG USE ONLY
+    function getTime(){
+        var today = new Date();
+        return today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    };
 
     if(detailID >= 0){
-    child = <Landing object= {details[detailID]} setParentText={setParentText} setParentDetailID= {setChildDetailID} isParent = {false} layer= {nextLayer}/>;
-    isParent = true;
+        child = <Landing object= {details[detailID]} setParentText={setParentText} setParentDetailID= {setChildID} isParent = {false} layer= {nextLayer}/>;
+        isParent = true;
     }
 
     if(details !== null && details !== undefined){
         for(let i = 0; i < details.length; i++){
             areas.push(<area onClick={() => loadDetail(i)} key={i} shape={details[i].area.shape} coords={details[i].area.coords} alt={details[i].info.title}/>);
         }
-
-        // console.log(areas);
     }
+
+    function setChildID(num){
+        setChildDetailID(num);
+        if(num >= 0){
+            clearDetailTimeout();
+        } 
+        if(num < 0){
+            closeDetail();
+        }
+   }
 
     function loadDetail(detailIdx){
         const detail = details[detailIdx];
 
-        //console.log(detailIdx);
-        //console.log(details[detailIdx]);
-
-        //alert("loading detail with title:\n" + detail.info.english.title);
         setDetailID(detailIdx);
         setParentText(detail.info);
+
+        console.log(object.info.english.title + ": loading detail " + detail.info.english.title + "  /// " + getTime());
 
         if(setParentDetailID !== undefined){
             setParentDetailID(detailIdx);
         }
+        startDetailTimeout(millisecTimer);
     }
 
     function closeDetail(){
-        console.log(layer)
 
+        console.log(object.info.english.title + ": closing detail /// " + getTime());
+        clearDetailTimeout();
         setDetailID(-1);
         setParentText(object.info);
 
@@ -53,8 +69,25 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer}){
             setParentDetailID(-1);
         }
     }
-    console.log(childDetailID < 0); 
-    console.log(detailID >= 0);
+
+    function startDetailTimeout(timeMilli){
+        console.log(object.info.english.title + ": setTimeout() /// " + getTime())
+        timeoutID.current = window.setTimeout(() => closeDetail(),timeMilli)
+    }
+
+    function clearDetailTimeout(){
+        console.log(object.info.english.title + ": clearTimeout() /// " + getTime())
+        if (timeoutID.current) {
+            clearTimeout(timeoutID.current);
+            timeoutID.current = null;
+        }
+    }
+
+    function restartDetailTimeout(){
+        console.log(object.info.english.title + ": restart() /// " + getTime())
+        clearDetailTimeout();
+        startDetailTimeout(millisecTimer);
+    }
 
     return(
         <div>
@@ -71,11 +104,14 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer}){
                 </div>
             }     
             {childDetailID < 0 && detailID >= 0 &&
-                <button onClick={() => closeDetail()}>Back</button>
+                <button onClick={() => {
+                    closeDetail();
+                }}>Back</button>
             } 
         </div>
         
     )
+    
 }
 
 export default Landing;
