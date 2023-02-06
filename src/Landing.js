@@ -3,7 +3,6 @@ import {ResizeCircleAreaCoords, ResizePolyAreaCoords, ResizeRectAreaCoords} from
 import React, { useRef } from 'react';
 import { useImageSize } from 'react-image-size';
 import './App.scss';
-import MapResize from "./MapResize";
 
 
 function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRatioString}){
@@ -25,10 +24,10 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRa
     const millisecTimer = 60000;
 
     // DEBUG USE ONLY
-    function getTime(){
-        var today = new Date();
-        return today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-    };
+    // function getTime(){
+    //     var today = new Date();
+    //     return today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    // };
 
     // if(imageData){
     //     console.log(imageData);
