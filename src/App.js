@@ -1,7 +1,8 @@
-import './App.css';
+import './App.scss';
 import React from 'react';
 import LanguageSelection from './LanguageSelection';
 import Landing from './Landing';
+import ScreenSize from './ScreenSize';
 import config from './assets/Configs/SouthIsland.json';
 
 function App(){
@@ -18,22 +19,27 @@ function App(){
   const subtitle = getSubtitle(langToggle,textObject);
   const paragraphs = getParagraphs(langToggle,textObject);
 
+  const aspectRatioString = ScreenSize();
+
     return (
       <div>
-        <h1>{getTitle(langToggle,textObject)}</h1>
-        {verifySubtitleExists(subtitle) &&
-        <h2>{subtitle}</h2>
-        }
-        <div>
+        <div className = {aspectRatioString + "-map"}>
+
+          <Landing object= {config} setParentText= {setTextObject} isParent= {false} layer= {0} aspectRatioString= {aspectRatioString}/>
+        </div>
+        <div className={aspectRatioString + "-info"}>
           <div>
+            <h1>{getTitle(langToggle,textObject)}</h1>
+            {verifySubtitleExists(subtitle) &&
+              <h2>{subtitle}</h2>
+            }
+
             {verifyParagraphsExist(paragraphs) &&
             <ul>{paragraphs.map((item) => <li key= {item.toString()}>{item}</li>)}</ul>
             } 
           </div>
           <LanguageSelection langValue={langToggle} toggleLang={setLangToggle}/>
         </div>
-        
-        <Landing object= {config} setParentText= {setTextObject} isParent= {false} layer= {0}/>
 
       </div>
     );
@@ -63,9 +69,6 @@ function getParagraphs(toggle,object){
     return object.english.paragraphs;
   }
 }
-// function getImage(object){
-//   return object.info.image
-// }
 
 function verifySubtitleExists(susSubtitle){
   return susSubtitle !== undefined && susSubtitle != null;

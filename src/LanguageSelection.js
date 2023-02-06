@@ -13,7 +13,7 @@ function LanguageSelection({langValue, toggleLang}) {
 
 function EnglishButton(props){
     return(
-        <button onClick={props.onClick}>
+        <button className="lang-button" onClick={props.onClick}>
             English
         </button>
     );
@@ -21,7 +21,7 @@ function EnglishButton(props){
 
 function MaoriButton(props){
     return(
-        <button onClick={props.onClick}>
+        <button className="lang-button" onClick={props.onClick}>
             Maori
         </button>
     );
