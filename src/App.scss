@@ -1,25 +1,25 @@
 h1{
-    font-size: 350%;
+    font-size: 200%;
     padding-left: 4%;
     z-index: 1;
 }
 
 h2{
-    font-size: 250%;
-    padding-left: 4%;
+    font-size: 150%;
+    padding-left: 3%;
     font-style: italic;
     z-index: 1;
 }
 
 li{
-    font-size: 20pt;
+    font-size: 90%;
     margin:auto;
     padding-bottom: 3%;
 }
 
 button{
     align-self: center;
-    font-size: 250%;
+    font-size: 150%;
 }
 
 .back{
@@ -102,9 +102,9 @@ button{
         display:block;
 
         position: absolute;
-        left: 0px;
+        right: 0px;
         height: 100%;
-        max-height: 1080px;
+        //max-height: 1080px;
         //max-width: 100%;
         margin-left: auto;
         margin-right: auto;

@@ -173,13 +173,35 @@
                     ]
                 },
                 "image":{
-                    "source": "/assets/Images/SouthIsland/Winter_Landscape_in_Western_Southland.jpg"
+                    "source": "/assets/Images/SouthIsland/Winter_Landscape_in_Western_Southland - Copy.png"
                 } 
             },
             "area":{
                 "shape": "poly",
                 "coords": [192,626,220,649,202,719,223,763,274,781,312,876,316,937,161,1053,21,841]
-            }
+            },
+
+            "details":[
+                {
+                    "info":{
+                        "english": {
+                            "title": "MAXWELL?!",
+                            "subtitle": "????????"
+                        },
+                        "maori":{
+                            "title": "MAXWELL?!",
+                            "subtitle": "????????"
+                        },
+                        "image":{
+                            "source": "https://i.kym-cdn.com/entries/icons/original/000/042/808/cover1.jpg"
+                        } 
+                    },
+                    "area":{
+                        "shape": "circle",
+                        "coords": [307,947,60]
+                    }
+                }
+            ]
         }
     ]
 }
