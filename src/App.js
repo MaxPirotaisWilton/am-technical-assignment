@@ -1,7 +1,7 @@
 import './App.scss';
 import React from 'react';
 import LanguageSelection from './LanguageSelection';
-import Landing from './Landing';
+import Page from './Page';
 import ScreenSize from './ScreenSize';
 import config from './assets/Configs/SouthIsland.json';
 
@@ -25,7 +25,7 @@ function App(){
       <div>
         <div className = {aspectRatioString + "-map"}>
 
-          <Landing object= {config} setParentText= {setTextObject} isParent= {false} layer= {0} aspectRatioString= {aspectRatioString}/>
+          <Page object= {config} setParentText= {setTextObject} isParent= {false} layer= {0} aspectRatioString= {aspectRatioString}/>
         </div>
         <div className={aspectRatioString + "-info"}>
           <div>

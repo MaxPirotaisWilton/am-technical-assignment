@@ -5,9 +5,8 @@ import { useImageSize } from 'react-image-size';
 import './App.scss';
 
 
-function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRatioString}){
+function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatioString}){
 
-    // console.log("render");
 
     const[detailID,setDetailID] = React.useState(-1);
     const[childDetailID, setChildDetailID] = React.useState(-1);
@@ -23,23 +22,9 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRa
     const timeoutID = useRef(null);
     const millisecTimer = 60000;
 
-    // DEBUG USE ONLY
-    // function getTime(){
-    //     var today = new Date();
-    //     return today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-    // };
-
-    // if(imageData){
-    //     console.log(imageData);
-    // }
-
-    // if(imageRef && imageRef.current){
-    //     console.log(imageRef.current.clientWidth);
-    //     console.log(imageRef.current.clientHeight);
-    // }
 
     if(detailID >= 0){
-        child = <Landing object= {details[detailID]} setParentText={setParentText} setParentDetailID= {setChildID} isParent = {false} layer= {nextLayer} aspectRatioString= {aspectRatioString}/>;
+        child = <Page object= {details[detailID]} setParentText={setParentText} setParentDetailID= {setChildID} isParent = {false} layer= {nextLayer} aspectRatioString= {aspectRatioString}/>;
         isParent = true;
     }
 
@@ -64,11 +49,6 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRa
                         scaledCoords = ResizePolyAreaCoords(details[i].area.coords, sizeOne, sizeTwo);
                         break;
                 }
-                //console.log(details[i].info.title);
-                //console.log(details[i].area.coords);
-
-                //console.log(scaledCoords);
-
                 areas.push(<area onClick={() => loadDetail(i)} key={i} shape={details[i].area.shape} coords={scaledCoords} alt={details[i].info.title}/>);
             }
         }
@@ -132,7 +112,7 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRa
     return(
         <div>
             <div>
-                <img className={aspectRatioString + "-image"} src= {imageURL} ref={imageRef} alt= "Landing page" useMap={"#details_" + layer.toString()}/>
+                <img className={aspectRatioString + "-image"} src= {imageURL} ref={imageRef} alt= {object.info.english.title} useMap={"#details_" + layer.toString()}/>
                 
                 {detailID < 0 &&
                     <map name= {"details_" + layer.toString()}>
@@ -156,4 +136,4 @@ function Landing({object,setParentText,setParentDetailID,isParent,layer,aspectRa
     
 }
 
-export default Landing;
+export default Page;
