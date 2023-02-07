@@ -13,6 +13,11 @@ This README will cover the following on this technical assignment for the Junior
 - Design Decisions
 - Shortcomings and Future Expansion
 
+Here are the links to the 2 versions of the projects:
+
+- [Octopus]()
+- [South Island]()
+
 ## Overview of the Brief
 
 The deliverable, as outlined in the provided PDF document, is an interactive kiosk display system using ReactJS front-end JavaScript library and styled using SASS. The deliverable is specified to run on a 27" touchscreen.
@@ -41,4 +46,10 @@ When developing this assignment project, I made a few software design decisions 
 
 The first decision was to use the .json file type for the system's configuration files. It is a popular file type for data interchange and is both easy to read and modify using JavaScript, simplifying the process of creating an administrator service at a latter date.
 
-The design for the different pages of the interactable system is one I'm quite proud of. Instead of clearly defining _Landing_ and _Hotspot_ pages as their seperate components, I decided to use recursion 
+The biggest design decision for this project relates to the different pages of the interactable system. Instead of clearly defining _Landing_ and _Hotspot_ pages as their seperate components, I decided to use recursion: an interactable page component can make a child page component appear, where the child page's information is stored in an array inside the parent's "details" field. Ultimately, the most important impact of this system is that it can support nested details (or details within details)! While recursion can get very difficult and unintuitive to work with, I feel as though it has provided a powerful feature for future installations and I'm quite proud of how I pulled it off (minus one bug. I'll discuss it in the later section).
+
+Another important design decision was to let the page automatically switch between a vertical or a horizontal layout. This based on whether the difference between the width and the height of the browser window. While this dynamic feature isn't going to be seen by end users interacting with the pages, it will simplify the installation process for the interactable: only the screen will have to be set to the desired orientation and the web page will follow.
+
+## Shortcomings and Future Expansion
+
+One of my project's biggest shortcomings is it's styling.
