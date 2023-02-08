@@ -2,10 +2,10 @@ function imageLoad(source){
     var image;
 
     if(isValidURL(source)){
-        image = source
+        image = source;
     }
     else{
-        image = process.env.PUBLIC_URL + source
+        image = process.env.PUBLIC_URL + source;
     }
 
     return image;

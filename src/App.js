@@ -1,41 +1,45 @@
 import './App.scss';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import LanguageSelection from './LanguageSelection';
 import Page from './Page';
 import ScreenSize from './ScreenSize';
-import config from './assets/Configs/SouthIsland.json';
+import config from './assets/Configs/Octopus.json';
 
 function App(){
 
-  const landingConfig = config.info;
-
-  // const detailConfigs = config.details;
-
-  var currentConfig = landingConfig;
+  const data = config;
 
   const [langToggle,setLangToggle] = React.useState(false);
-  const [textObject,setTextObject] = React.useState(currentConfig);
-  
-  const subtitle = getSubtitle(langToggle,textObject);
-  const paragraphs = getParagraphs(langToggle,textObject);
+  const [textObject,setTextObject] = React.useState(data.info);
+
+  var title = "";
+  var subtitle = "";
+  var paragraphs = [];
+
+  if(textObject){
+    title = getTitle(langToggle, textObject);
+    subtitle = getSubtitle(langToggle,textObject);
+    paragraphs = getParagraphs(langToggle,textObject);
+  }
 
   const aspectRatioString = ScreenSize();
 
     return (
       <div>
         <div className = {aspectRatioString + "-map"}>
-
-          <Page object= {config} setParentText= {setTextObject} isParent= {false} layer= {0} aspectRatioString= {aspectRatioString}/>
+          {data != [] &&
+            <Page object= {data} setParentText= {setTextObject} isParent= {false} layer= {0} aspectRatioString= {aspectRatioString}/>
+          }
         </div>
         <div className={aspectRatioString + "-info"}>
           <div>
-            <h1>{getTitle(langToggle,textObject)}</h1>
+            <h1>{title}</h1>
             {verifySubtitleExists(subtitle) &&
               <h2>{subtitle}</h2>
             }
 
             {verifyParagraphsExist(paragraphs) &&
-            <ul>{paragraphs.map((item) => <li key= {item.toString()}>{item}</li>)}</ul>
+              <ul>{paragraphs.map((item) => <li key= {item.toString()}>{item}</li>)}</ul>
             } 
           </div>
           <LanguageSelection langValue={langToggle} toggleLang={setLangToggle}/>

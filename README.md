@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Auckland Museum Technical Assignment Submission
+
+## By Max Pirotais-Wilton
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+This README will cover the following on this technical assignment for the Junior ReactJS Programmer position at the Auckland Memorial Museum: 
 
-### `npm start`
+- Overview of the Brief
+- Assumptions
+- Design Decisions
+- Shortcomings
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Here are the links to the 2 versions of the projects:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Octopus]()
+- [South Island]()
 
-### `npm test`
+## Overview of the Brief
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The deliverable, as outlined in the provided PDF document, is an interactive kiosk display system using ReactJS front-end JavaScript library and styled using SASS. The deliverable is specified to run on a 27" touchscreen.
 
-### `npm run build`
+The display system is meant to use configuration files, where it can then fetch relevant images, text information and other data to programaticall create a unique kiosk interactive display. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I won't recount all the specifications for this assignment, they are available on the supplied PDF document.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Assumptions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Here are a list of assumptions I made during development of the system:
 
-### `npm run eject`
+- The brief has specified that the system will be used on only one device/environment. This means we don't need to solve issues pertaining to other platforms/scenarios.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- The Touch Screen's resolution is 1920X1080 (or 1080X1920 when mounted vertically). This is based on very shallow research into touch screen monitors.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- The Touch Screen is a **monitor**, not a **mobile device**. Important as this can impact font-size on screen.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Images provided for the assignment are provided as is and are not to be modified.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- No current plan to add more languages to the system (other than English or Te reo Māori).
 
-## Learn More
+## Design Decisions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+When developing this assignment project, I made a few software design decisions that I felt were either important to highlight or that I thought could make the project stand out technically.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The first decision was to use the .json file type for the system's configuration files. It is a popular file type for data interchange and is both easy to read and modify using JavaScript, simplifying the process of creating an administrator service at a latter date.
 
-### Code Splitting
+The biggest design decision for this project relates to the different pages of the interactable system. Instead of clearly defining _Landing_ and _Hotspot_ pages as their seperate components, I decided to use recursion: an interactable page component can make a child page component appear, where the child page's information is stored in an array inside the parent's "details" field. Ultimately, the most important impact of this system is that it can support nested details (or details within details)! While recursion can get very difficult and unintuitive to work with, I feel as though it has opened up the possibilities for future installations and I'm quite proud of how I pulled it off (minus one bug. I'll discuss it in the later section).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Another important design decision was to let the page automatically switch between a vertical or a horizontal layout. This based on the difference between the width and the height of the browser window. While this dynamic feature isn't going to be seen by end users interacting with the pages, it will simplify the installation process for the interactable: only the screen will have to be set to the desired orientation and the web page will follow suit.
 
-### Analyzing the Bundle Size
+## Shortcomings
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+One of my project's biggest shortcomings is it's styling. I prioritised the JavaScript components heavily during the time I was given to make sure the interactions and systems would be functional. As a result, I left the styling of the page up until the last minute and, alongside full-time work during the week, I didn't get it to look as sleek as I wanted to. 
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Another shortcoming is that the system has a bug for configurations that have nested hotspots: the user returns to the landing page when pressing the back button in a nested page instead of returning to the previous page. While this isn't a critical issue for the scenarios given for this brief, it impacts the user experience on multi-layered configurations negatively enough I don't feel confident shipping this feature. This also meant I canned the addition of an easter egg in the **South Island** configuration, which would showcase nested pages and using hosted images for pages instead of just locally stored image files (this feature is shippable, but all images provided are local so it is not used). 
