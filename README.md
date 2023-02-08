@@ -15,8 +15,8 @@ This README will cover the following on this technical assignment for the Junior
 
 Here are the links to the 2 versions of the projects:
 
-- [Octopus]()
-- [South Island]()
+- [Octopus](https://octopus-am-tech-assignment.netlify.app/)
+- [South Island](https://southisland-am-tech-assignment.netlify.app/)
 
 ## Overview of the Brief
 
@@ -55,3 +55,5 @@ Another important design decision was to let the page automatically switch betwe
 One of my project's biggest shortcomings is it's styling. I prioritised the JavaScript components heavily during the time I was given to make sure the interactions and systems would be functional. As a result, I left the styling of the page up until the last minute and, alongside full-time work during the week, I didn't get it to look as sleek as I wanted to. 
 
 Another shortcoming is that the system has a bug for configurations that have nested hotspots: the user returns to the landing page when pressing the back button in a nested page instead of returning to the previous page. While this isn't a critical issue for the scenarios given for this brief, it impacts the user experience on multi-layered configurations negatively enough I don't feel confident shipping this feature. This also meant I canned the addition of an easter egg in the **South Island** configuration, which would showcase nested pages and using hosted images for pages instead of just locally stored image files (this feature is shippable, but all images provided are local so it is not used). 
+
+The final limitation of the system currently is that the codebase needs to be modified to read a different .json configuration file. This is an issue that severly impacts the flexibility of the system. I have researched and attempted to implement a solution with no luck.

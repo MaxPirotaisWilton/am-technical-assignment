@@ -1,9 +1,9 @@
 import './App.scss';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import LanguageSelection from './LanguageSelection';
 import Page from './Page';
 import ScreenSize from './ScreenSize';
-import config from './assets/Configs/Octopus.json';
+import config from './assets/Configs/SouthIsland.json';
 
 function App(){
 
@@ -27,7 +27,7 @@ function App(){
     return (
       <div>
         <div className = {aspectRatioString + "-map"}>
-          {data != [] &&
+          {data !== [] &&
             <Page object= {data} setParentText= {setTextObject} isParent= {false} layer= {0} aspectRatioString= {aspectRatioString}/>
           }
         </div>
