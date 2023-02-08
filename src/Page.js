@@ -70,8 +70,6 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
         setDetailID(detailIdx);
         setParentText(detail.info);
 
-        //console.log(object.info.english.title + ": loading detail " + detail.info.english.title + "  /// " + getTime());
-
         if(setParentDetailID !== undefined){
             setParentDetailID(detailIdx);
         }
@@ -80,7 +78,6 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
 
     function closeDetail(){
 
-        //console.log(object.info.english.title + ": closing detail /// " + getTime());
         clearDetailTimeout();
         setDetailID(-1);
         setParentText(object.info);
@@ -91,23 +88,15 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
     }
 
     function startDetailTimeout(timeMilli){
-        //console.log(object.info.english.title + ": setTimeout() /// " + getTime())
         timeoutID.current = window.setTimeout(() => closeDetail(),timeMilli)
     }
 
     function clearDetailTimeout(){
-        //console.log(object.info.english.title + ": clearTimeout() /// " + getTime())
         if (timeoutID.current) {
             clearTimeout(timeoutID.current);
             timeoutID.current = null;
         }
     }
-
-    // function restartDetailTimeout(){
-    //     console.log(object.info.english.title + ": restart() /// " + getTime())
-    //     clearDetailTimeout();
-    //     startDetailTimeout(millisecTimer);
-    // }
 
     return(
         <div>
