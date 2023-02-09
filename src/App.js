@@ -3,11 +3,16 @@ import React from 'react';
 import LanguageSelection from './LanguageSelection';
 import Page from './Page';
 import ScreenSize from './ScreenSize';
+
+//  json configuration file has to be manually imported: not scalable
+
 import config from './assets/Configs/SouthIsland.json';
 
 function App(){
 
+  //  load json configuration file
   const data = config;
+
 
   const [langToggle,setLangToggle] = React.useState(false);
   const [textObject,setTextObject] = React.useState(data.info);
@@ -16,11 +21,20 @@ function App(){
   var subtitle = "";
   var paragraphs = [];
 
+  //  Get info strings from json object, based on the langToggle status
+  //  to fetch either English or Maori text
+  //
+  //  Not flexible for adding more languages
+
   if(textObject){
     title = getTitle(langToggle, textObject);
     subtitle = getSubtitle(langToggle,textObject);
     paragraphs = getParagraphs(langToggle,textObject);
   }
+
+  //  string used to fetch different styling depending on: 
+  //  
+  //  window width - window height
 
   const aspectRatioString = ScreenSize();
 

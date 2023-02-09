@@ -5,7 +5,7 @@ import { useImageSize } from 'react-image-size';
 import './App.scss';
 
 
-function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatioString}){
+function Page({object,setParentText,setParentChildDetailID,isParent,layer,aspectRatioString}){
 
 
     const[detailID,setDetailID] = React.useState(-1);
@@ -22,12 +22,13 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
     const timeoutID = useRef(null);
     const millisecTimer = 60000;
 
-
+    // If detail is selected, populate child Page component
     if(detailID >= 0){
-        child = <Page object= {details[detailID]} setParentText={setParentText} setParentDetailID= {setChildID} isParent = {false} layer= {nextLayer} aspectRatioString= {aspectRatioString}/>;
+        child = <Page object= {details[detailID]} setParentText={setParentText} setParentChildDetailID= {setChildID} isParent = {false} layer= {nextLayer} aspectRatioString= {aspectRatioString}/>;
         isParent = true;
     }
 
+    // Resize area coordinates, based on the image at it's original size, for the image map as it is scaled with the styling.
     if(details !== null && details !== undefined){
 
         if(imageData && imageRef && imageRef.current){
@@ -54,6 +55,7 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
         }
     }
 
+    // function passed to child pages: lets the child page set the childDetailID stateful variable of the parent
     function setChildID(num){
         setChildDetailID(num);
         if(num >= 0){
@@ -64,26 +66,39 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
         }
    }
 
+    // Sets detailID, used to populate child Page component, and parent's childDetailID.
+    // Sets 1 minute timeout for page, where it'll use closeDetail() function.
+
     function loadDetail(detailIdx){
+
         const detail = details[detailIdx];
 
+
         setDetailID(detailIdx);
+
+        // set textObject stateful variable in App component to the info field of the page's details
         setParentText(detail.info);
 
-        if(setParentDetailID !== undefined){
-            setParentDetailID(detailIdx);
+        if(setParentChildDetailID !== undefined){
+            setParentChildDetailID(detailIdx);
         }
         startDetailTimeout(millisecTimer);
     }
+
+    // resets detailID and parent's childDetailID.
+    // This unloads to the main page, 
+    // not desirable for convenient multi-layered interactive
 
     function closeDetail(){
 
         clearDetailTimeout();
         setDetailID(-1);
+
+        // reset textObject stateful variable in App component to the info field of the current page
         setParentText(object.info);
 
-        if(setParentDetailID !== undefined){
-            setParentDetailID(-1);
+        if(setParentChildDetailID !== undefined){
+            setParentChildDetailID(-1);
         }
     }
 
@@ -103,6 +118,7 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
             <div>
                 <img className={aspectRatioString + "-image"} src= {imageURL} ref={imageRef} alt= {object.info.english.title} useMap={"#details_" + layer.toString()}/>
                 
+                {/*load map element if no element has been selected on this page*/}
                 {detailID < 0 &&
                     <map name= {"details_" + layer.toString()}>
                     {areas}
@@ -111,9 +127,17 @@ function Page({object,setParentText,setParentDetailID,isParent,layer,aspectRatio
             </div>
             {detailID >= 0 &&
                 <div>
+                    {/* !! Recursion happens here !!
+
+                        Displays child Page component if current Page component's detailID is not negative
+                    */}
                     {child}
                 </div>
-            }     
+            }   
+            {/* 
+                Makes back button appear only if a child Page is rendered and 
+                if that child Page component has not selected a child page of it's own
+            */}
             {childDetailID < 0 && detailID >= 0 &&
                 <button className="back" onClick={() => {
                     closeDetail();
